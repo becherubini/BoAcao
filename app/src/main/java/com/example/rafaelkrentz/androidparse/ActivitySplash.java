@@ -1,17 +1,45 @@
 package com.example.rafaelkrentz.androidparse;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.TextView;
 
-
-public class MainActivity extends ActionBarActivity {
-
+/**
+ * Created by cherubiniNB on 18/05/2015.
+ */
+public class ActivitySplash extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.splash_screen);
+
+       // TextView splashText = (TextView) findViewById(R.id.splashText);
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+
+                try {
+                    sleep(5000);
+                    depoisEspera();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
+
+    public void depoisEspera(){
+        Intent it = new Intent(this, ActivityList.class);
+        startActivity(it);
+        finish();
     }
 
     @Override
@@ -34,5 +62,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

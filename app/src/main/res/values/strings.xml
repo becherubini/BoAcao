@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">AndroidParse</string>
+    <string name="app_name">BoAcao</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="teste">TESTE</string>
+    <string name="splash_text">BoAÇÃO</string>
 </resources>
