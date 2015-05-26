@@ -9,6 +9,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.Parse;
+import com.parse.ParseInstallation;
+
 /**
  * Created by cherubiniNB on 18/05/2015.
  */
@@ -17,6 +20,9 @@ public class ActivitySplash extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+
+        Parse.initialize(this, "eKOd0SPaY3MVKgtJz58tQBJPGHNdwrYGCbzF3v0t", "ntOylyRdiHA5OxHmhY4nCHcuEbSvUo1z5kuT6Yr9");
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
        // TextView splashText = (TextView) findViewById(R.id.splashText);
 

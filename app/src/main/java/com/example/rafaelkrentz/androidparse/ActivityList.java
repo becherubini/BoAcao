@@ -6,6 +6,10 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.Parse;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +28,11 @@ public class ActivityList extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.institute_list);
 
+
+
         lvInstitutes = (ListView) findViewById(R.id.lvInstitute);
 
         FragmentActivity fr = new FragmentActivity();
-
     }
 
     @Override
@@ -42,8 +47,17 @@ public class ActivityList extends Activity{
         List<Institute> inst = new ArrayList<Institute>();
 
         inst.add(new Institute("Spaan", "idosos", "Av Nonoai"));
-        inst.add(new Institute("AACD", "crianças", "São Paulo"));
-        inst.add(new Institute("Airton Senna", "crianças", "Av Senna"));
+        inst.add(new Institute("AACD", "criancas", "Sao Paulo"));
+        inst.add(new Institute("Airton Senna", "criancas", "Av Senna"));
+
+       /*
+        //INSERE NO PARSE
+        ParseObject gameScore = new ParseObject("Institute");
+        gameScore.put("score", 1337);
+        gameScore.put("playerName", "Sean Plott");
+        gameScore.put("cheatMode", false);
+        gameScore.saveInBackground();
+        */
 
         return inst;
     }

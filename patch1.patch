@@ -1,0 +1,84 @@
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(date 1432162812000)
++++ .idea/gradle.xml	(date 1432163497000)
+@@ -5,8 +5,8 @@
+       <GradleProjectSettings>
+         <option name="distributionType" value="LOCAL" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.2.1" />
+-        <option name="gradleJvm" value="1.6" />
++        <option name="gradleHome" value="C:\Program Files\Android\Android Studio\gradle\gradle-2.2.1" />
++        <option name="gradleJvm" value="1.8" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(date 1432162812000)
++++ .idea/modules.xml	(date 1432163497000)
+@@ -3,7 +3,6 @@
+   <component name="ProjectModuleManager">
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/Android.iml" filepath="$PROJECT_DIR$/Android.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/Android.iml" filepath="$PROJECT_DIR$/Android.iml" />
+       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+     </modules>
+   </component>
+\ No newline at end of file
+Index: Android.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Android.iml	(date 1432162812000)
++++ Android.iml	(date 1432163497000)
+@@ -9,6 +9,8 @@
+     </facet>
+   </component>
+   <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <output url="file://$MODULE_DIR$/build" />
++    <output-test url="file://$MODULE_DIR$/build" />
+     <exclude-output />
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
+\ No newline at end of file
+Index: app/app.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/app.iml	(date 1432162812000)
++++ app/app.iml	(date 1432163497000)
+@@ -88,9 +88,9 @@
+     </content>
+     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+-    <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
+-    <orderEntry type="library" exported="" name="bolts-android-1.2.0" level="project" />
+-    <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
+     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
++    <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
++    <orderEntry type="library" exported="" name="bolts-android-1.2.0" level="project" />
++    <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: settings.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- settings.gradle	(date 1432162812000)
++++ settings.gradle	(date 1432163497000)
+@@ -1,1 +1,1 @@
++include ':app'
+ 
+\ No newline at end of file
