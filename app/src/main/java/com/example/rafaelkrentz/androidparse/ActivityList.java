@@ -7,8 +7,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.Parse;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,38 @@ public class ActivityList extends Activity{
         lvInstitutes = (ListView) findViewById(R.id.lvInstitute);
 
         FragmentActivity fr = new FragmentActivity();
+
+
+        //INSERE NO PARSE
+/*
+        ParseObject state = new ParseObject("State");
+        state.put("state", "RS");
+
+        ParseGeoPoint portoAlegrePoint = new ParseGeoPoint(-30.079138, -51.219374);
+
+        ParseObject city = new ParseObject("City");
+        city.put("city", "Porto Alegre");
+        city.put("location", portoAlegrePoint);
+        //city.put("parent", state);//ParseObject.createWithoutData("State", "koAdci7Ta1")
+
+        city.saveInBackground();
+ 
+        ParseObject state = new ParseObject("State");
+        state = new ParseObject("State");
+        state.put("id", 1);
+        state.put("state", "RS");
+        state.saveInBackground();
+
+         state.put("id", 2);
+        state.put("state", "SC");
+        state.saveInBackground();
+
+        state = new ParseObject("State");
+        state.put("id", 3);
+        state.put("state", "PR");
+        state.saveInBackground();
+        */
+
     }
 
     @Override
@@ -49,15 +83,6 @@ public class ActivityList extends Activity{
         inst.add(new Institute("Spaan", "idosos", "Av Nonoai"));
         inst.add(new Institute("AACD", "criancas", "Sao Paulo"));
         inst.add(new Institute("Airton Senna", "criancas", "Av Senna"));
-
-       /*
-        //INSERE NO PARSE
-        ParseObject gameScore = new ParseObject("Institute");
-        gameScore.put("score", 1337);
-        gameScore.put("playerName", "Sean Plott");
-        gameScore.put("cheatMode", false);
-        gameScore.saveInBackground();
-        */
 
         return inst;
     }
