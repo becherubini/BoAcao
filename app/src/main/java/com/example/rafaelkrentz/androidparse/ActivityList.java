@@ -20,11 +20,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by cherubiniNB on 18/05/2015.
- */
-
-
 public class ActivityList extends Activity{
 
     private ListView lvInstitutes;
@@ -91,16 +86,13 @@ public class ActivityList extends Activity{
                     Log.d("institute", "Error: " + e.getMessage());
                 }
     */
-    Log.i("toma","sede");
        ParseQuery<ParseObject> queryInst = ParseQuery.getQuery("Institute");
-        queryInst.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> instList, com.parse.ParseException e) {
-                if (e == null) {
-                    Log.i("score", "Retrieved " + instList.size() + " institutes");
+        queryInst.findInBackground((instList, e) -> {
+            if (e == null) {
+                Log.i("score", "Retrieved " + instList.size() + " institutes");
 
-                } else {
-                    Log.i("score", "Error: " + e.getMessage());
-                }
+            } else {
+                Log.i("score", "Error: " + e.getMessage());
             }
         });
     }
@@ -109,12 +101,12 @@ public class ActivityList extends Activity{
     protected void onResume() {
         super.onResume();
         institutes = criaListaTemporaria()   ;
-        ArrayAdapter<Institute> adp = new ArrayAdapter<Institute>(this, android.R.layout.simple_list_item_1, institutes);
+        ArrayAdapter<Institute> adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, institutes);
         lvInstitutes.setAdapter(adp);
     }
 
     private List<Institute> criaListaTemporaria(){
-        List<Institute> inst = new ArrayList<Institute>();
+        List<Institute> inst = new ArrayList<>();
 
         inst.add(new Institute("Spaan", "idosos", "Av Nonoai"));
         inst.add(new Institute("AACD", "criancas", "Sao Paulo"));
