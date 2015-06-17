@@ -3,15 +3,20 @@ package com.example.rafaelkrentz.androidparse;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.nio.charset.Charset;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,21 +41,33 @@ public class ActivityList extends Activity{
 
         FragmentActivity fr = new FragmentActivity();
 
+   /*   ParseObject target  = new ParseObject("Target");
+        target.put("target", "infantil");
+        target.saveInBackground();*/
 
         //INSERE NO PARSE
-/*
-        ParseObject state = new ParseObject("State");
-        state.put("state", "RS");
 
-        ParseGeoPoint portoAlegrePoint = new ParseGeoPoint(-30.079138, -51.219374);
+       /* ParseObject institute  = new ParseObject("Institute");
+        ParseGeoPoint instituteMap = new ParseGeoPoint(30.089535, -51.217725);
+        institute.put("address", "Av. Nonoai, 600");
+        institute.put("location",instituteMap);
+        institute.put("name", "Spaan");
+        institute.put("cnpj", "92855600000150");
+        institute.put("idCity", "RWmL6iBmT8");
+        institute.put("idTarget","1zJSeZa0V0");
+        institute.saveInBackground();*/
 
-        ParseObject city = new ParseObject("City");
-        city.put("city", "Porto Alegre");
-        city.put("location", portoAlegrePoint);
-        //city.put("parent", state);//ParseObject.createWithoutData("State", "koAdci7Ta1")
+       /* ParseObject institute  = new ParseObject("Institute");
+        ParseGeoPoint instituteMap = new ParseGeoPoint(-30.052080, -51.170135);
+        institute.put("address", "R. Prof. Cristiano Fischer, 1510");
+        institute.put("location",instituteMap);
+        institute.put("name", "AACD");
+        institute.put("cnpj", "60979457000111");
+        institute.put("idCity", "RWmL6iBmT8");
+        institute.put("idTarget","1zJSeZa0V0");
+        institute.saveInBackground();*/
 
-        city.saveInBackground();
- 
+       /*
         ParseObject state = new ParseObject("State");
         state = new ParseObject("State");
         state.put("id", 1);
@@ -65,14 +82,33 @@ public class ActivityList extends Activity{
         state.put("id", 3);
         state.put("state", "PR");
         state.saveInBackground();
-        */
 
+           @Override
+            public void done(List<ParseObject> scoreList, ParseException e){
+                if(e==null){
+                    Log.d("institute", "Retrieved " + scoreList.size() + " scores");
+                }else{
+                    Log.d("institute", "Error: " + e.getMessage());
+                }
+    */
+    Log.i("toma","sede");
+       ParseQuery<ParseObject> queryInst = ParseQuery.getQuery("Institute");
+        queryInst.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> instList, com.parse.ParseException e) {
+                if (e == null) {
+                    Log.i("score", "Retrieved " + instList.size() + " institutes");
+
+                } else {
+                    Log.i("score", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        institutes = criaListaTemporaria();
+        institutes = criaListaTemporaria()   ;
         ArrayAdapter<Institute> adp = new ArrayAdapter<Institute>(this, android.R.layout.simple_list_item_1, institutes);
         lvInstitutes.setAdapter(adp);
     }
