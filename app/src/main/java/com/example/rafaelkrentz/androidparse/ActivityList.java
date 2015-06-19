@@ -1,10 +1,13 @@
 package com.example.rafaelkrentz.androidparse;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
@@ -25,22 +28,49 @@ public class ActivityList extends Activity{
     private ListView lvInstitutes;
     private List<Institute> institutes;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.institute_list);
 
-
-
+        final Button btnMap = (Button) findViewById(R.id.btnMap);
         lvInstitutes = (ListView) findViewById(R.id.lvInstitute);
-
         FragmentActivity fr = new FragmentActivity();
 
-   /*   ParseObject target  = new ParseObject("Target");
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(ActivityList.this, ActivityMap.class);
+                startActivity(it);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        institutes = criaListaTemporaria()   ;
+        ArrayAdapter<Institute> adp = new ArrayAdapter<Institute>(this, android.R.layout.simple_list_item_1, institutes);
+        lvInstitutes.setAdapter(adp);
+    }
+
+    private List<Institute> criaListaTemporaria(){
+        List<Institute> inst = new ArrayList<Institute>();
+
+        inst.add(new Institute("Spaan", "idosos", "Av Nonoai"));
+        inst.add(new Institute("AACD", "criancas", "Sao Paulo"));
+        inst.add(new Institute("Airton Senna", "criancas", "Av Senna"));
+
+        return inst;
+    }
+}
+
+/*   ParseObject target  = new ParseObject("Target");
         target.put("target", "infantil");
         target.saveInBackground();*/
 
-        //INSERE NO PARSE
+//INSERE NO PARSE
 
        /* ParseObject institute  = new ParseObject("Institute");
         ParseGeoPoint instituteMap = new ParseGeoPoint(30.089535, -51.217725);
@@ -85,33 +115,13 @@ public class ActivityList extends Activity{
                 }else{
                     Log.d("institute", "Error: " + e.getMessage());
                 }
-    */
+
        ParseQuery<ParseObject> queryInst = ParseQuery.getQuery("Institute");
         queryInst.findInBackground((instList, e) -> {
             if (e == null) {
-                Log.i("score", "Retrieved " + instList.size() + " institutes");
+                Log.i("List", "Retrieved " + instList.size() + " institutes");
 
             } else {
-                Log.i("score", "Error: " + e.getMessage());
+                Log.i("List", "Error: " + e.getMessage());
             }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        institutes = criaListaTemporaria()   ;
-        ArrayAdapter<Institute> adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, institutes);
-        lvInstitutes.setAdapter(adp);
-    }
-
-    private List<Institute> criaListaTemporaria(){
-        List<Institute> inst = new ArrayList<>();
-
-        inst.add(new Institute("Spaan", "idosos", "Av Nonoai"));
-        inst.add(new Institute("AACD", "criancas", "Sao Paulo"));
-        inst.add(new Institute("Airton Senna", "criancas", "Av Senna"));
-
-        return inst;
-    }
-}
+        }); */
