@@ -6,29 +6,9 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Lista"
-        android:id="@+id/btnList"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
         android:text="MAPA"
         android:id="@+id/btnMap"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/btnList" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvInstitute"
-        android:choiceMode="singleChoice"
-        android:layout_below="@+id/searchView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -37,8 +17,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
         android:queryHint="Digite uma instituição"
-        android:layout_below="@+id/btnList"
+        android:layout_below="@+id/btnMap"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvInstitute"
+        android:choiceMode="singleChoice"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/searchView" />
 
 </RelativeLayout>

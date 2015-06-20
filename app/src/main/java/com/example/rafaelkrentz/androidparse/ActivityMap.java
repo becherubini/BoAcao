@@ -7,6 +7,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.*;
@@ -50,6 +52,15 @@ public class ActivityMap extends Activity{
         } catch (NullPointerException exception){
             Log.e("mapApp", exception.toString());
         }
+
+
+        Button btnList = (Button) findViewById(R.id.btnList);
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void addMarker(){
