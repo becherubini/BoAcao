@@ -3,24 +3,19 @@ package com.example.rafaelkrentz.androidparse;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.Parse;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.nio.charset.Charset;
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ActivityList extends Activity{
@@ -36,7 +31,16 @@ public class ActivityList extends Activity{
 
         final Button btnMap = (Button) findViewById(R.id.btnMap);
         lvInstitutes = (ListView) findViewById(R.id.lvInstitute);
-        FragmentActivity fr = new FragmentActivity();
+
+        lvInstitutes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Globals.currentProfile = institutes.get(position);
+                Log.d("Instituto", "Posicao" + Globals.currentProfile.getName());
+                Intent it = new Intent(ActivityList.this, ActivityProfile.class);
+                startActivity(it);
+            }
+        });
 
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,30 +49,50 @@ public class ActivityList extends Activity{
                 startActivity(it);
             }
         });
+
+
+        try {
+          createList();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<Institute> adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, institutes);
+        lvInstitutes.setAdapter(adp);
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        institutes = criaListaTemporaria()   ;
-        ArrayAdapter<Institute> adp = new ArrayAdapter<Institute>(this, android.R.layout.simple_list_item_1, institutes);
-        lvInstitutes.setAdapter(adp);
     }
 
-    private List<Institute> criaListaTemporaria(){
-        List<Institute> inst = new ArrayList<Institute>();
+   private void createList() throws com.parse.ParseException {
+       List<Institute> list = new ArrayList<>();
 
-        inst.add(new Institute("Spaan", "idosos", "Av Nonoai"));
-        inst.add(new Institute("AACD", "criancas", "Sao Paulo"));
-        inst.add(new Institute("Airton Senna", "criancas", "Av Senna"));
+       ParseQuery<ParseObject> query = ParseQuery.getQuery("Institute");
+       query.selectKeys(Arrays.asList("objectId", "name", "target", "cnpj", "address", "location"));
+       List<ParseObject> results = query.find();
 
-        return inst;
+//       Log.d("Instituto", "Tamanho: " + results.size());
+       for (ParseObject institute : results) {
+           list.add(new Institute(
+                   institute.getObjectId(),
+                   institute.getString("name"),
+                   institute.getString("target"),
+                   institute.getString("cnpj"),
+                   institute.getString("address"),
+                   institute.getParseGeoPoint("location")
+                   ));
+       }
+       institutes = list;
+       Globals.currentInstList = list;
     }
+
 }
 
-/*   ParseObject target  = new ParseObject("Target");
-        target.put("target", "infantil");
-        target.saveInBackground();*/
+
+
 
 //INSERE NO PARSE
 
@@ -108,20 +132,4 @@ public class ActivityList extends Activity{
         state.put("state", "PR");
         state.saveInBackground();
 
-           @Override
-            public void done(List<ParseObject> scoreList, ParseException e){
-                if(e==null){
-                    Log.d("institute", "Retrieved " + scoreList.size() + " scores");
-                }else{
-                    Log.d("institute", "Error: " + e.getMessage());
-                }
-
-       ParseQuery<ParseObject> queryInst = ParseQuery.getQuery("Institute");
-        queryInst.findInBackground((instList, e) -> {
-            if (e == null) {
-                Log.i("List", "Retrieved " + instList.size() + " institutes");
-
-            } else {
-                Log.i("List", "Error: " + e.getMessage());
-            }
-        }); */
+         */

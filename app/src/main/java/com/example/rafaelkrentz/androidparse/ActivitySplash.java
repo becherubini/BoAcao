@@ -31,12 +31,8 @@ public class ActivitySplash extends Activity{
             public void run() {
                 super.run();
 
-                try {
-                    sleep(5000);
-                    depoisEspera();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                // sleep(5000);
+                depoisEspera();
 
             }
         }.start();
@@ -47,6 +43,7 @@ public class ActivitySplash extends Activity{
         startActivity(it);
         finish();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
