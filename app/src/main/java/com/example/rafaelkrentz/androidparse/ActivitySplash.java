@@ -10,7 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by cherubiniNB on 18/05/2015.
@@ -32,18 +39,45 @@ public class ActivitySplash extends Activity{
                 super.run();
 
                 // sleep(5000);
+                try {
+                    createList();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 depoisEspera();
 
             }
         }.start();
     }
 
-    public void depoisEspera(){
+    private void depoisEspera(){
         Intent it = new Intent(this, ActivityList.class);
         startActivity(it);
         finish();
     }
 
+    private void createList() throws com.parse.ParseException {
+        List<Institute> list = new ArrayList<>();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Institute");
+        query.selectKeys(Arrays.asList("objectId", "name", "target", "cnpj", "address", "location", "phone", "email", "image"));
+        List<ParseObject> results = query.find();
+
+        for (ParseObject institute : results) {
+            list.add(new Institute(
+                    institute.getObjectId(),
+                    institute.getString("name"),
+                    institute.getString("target"),
+                    institute.getString("cnpj"),
+                    institute.getString("address"),
+                    institute.getParseGeoPoint("location"),
+                    institute.getString("phone"),
+                    institute.getString("email"),
+                    institute.getParseFile("image")
+            ));
+        }
+        Globals.currentInstList = list;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
