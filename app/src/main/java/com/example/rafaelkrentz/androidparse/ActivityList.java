@@ -3,21 +3,18 @@ package com.example.rafaelkrentz.androidparse;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import java.util.List;
 
-public class ActivityList extends Activity{
+public class ActivityList extends Activity implements SearchView.OnQueryTextListener {
 
     private ListView lvInstitutes;
     private List<Institute> institutes;
@@ -45,29 +42,6 @@ public class ActivityList extends Activity{
             }
         });
 
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.i("Nomad", "onQueryTextSubmit");
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.i("Nomad", "onQueryTextChange");
-
-                if (TextUtils.isEmpty(newText)) {
-                    adp.getFilter().filter("");
-                    Log.i("Nomad", "onQueryTextChange Empty String");
-                    //placesListView.clearTextFilter();
-                } else {
-                    Log.i("Nomad", "onQueryTextChange " + newText.toString());
-                    adp.getFilter().filter(newText.toString());
-                }
-                return true;
-            }
-        });*/
-
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,13 +56,52 @@ public class ActivityList extends Activity{
         super.onResume();
 
         createListView();
+        setupSearchView();
     }
 
     private void createListView(){
         adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, institutes);
         lvInstitutes.setAdapter(adp);
+        lvInstitutes.setTextFilterEnabled(true);
+    }
+    private void setupSearchView() {
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(this);
     }
 
+
+    /**
+     * Called when the user submits the query. This could be due to a key press on the
+     * keyboard or due to pressing a submit button.
+     * The listener can override the standard behavior by returning true
+     * to indicate that it has handled the submit request. Otherwise return false to
+     * let the SearchView handle the submission by launching any associated intent.
+     *
+     * @param query the query text that is to be submitted
+     * @return true if the query has been handled by the listener, false to let the
+     * SearchView perform the default action.
+     */
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    /**
+     * Called when the query text is changed by the user.
+     *
+     * @param newText the new content of the query text field.
+     * @return false if the SearchView should perform the default action of showing any
+     * suggestions if available, true if the action was handled by the listener.
+     */
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (TextUtils.isEmpty(newText)) {
+            lvInstitutes.clearTextFilter();
+        } else {
+            lvInstitutes.setFilterText(newText.toString());
+        }
+        return true;
+    }
 }
 
 

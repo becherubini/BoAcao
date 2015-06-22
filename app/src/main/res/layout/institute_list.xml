@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
-        android:queryHint="Digite uma instituição"
+        android:queryHint="Procure por uma instituição"
         android:layout_below="@+id/btnMap"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
